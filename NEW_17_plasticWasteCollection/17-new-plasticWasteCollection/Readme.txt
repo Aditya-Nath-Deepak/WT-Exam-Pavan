@@ -1,6 +1,5 @@
 ===========================================================
 PROJECT: WASTE COLLECTION & AUTHORITY DIRECTION SYSTEM
-DEVELOPER: ARYAN
 ===========================================================
 
 1. OVERVIEW
