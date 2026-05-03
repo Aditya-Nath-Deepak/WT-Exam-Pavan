@@ -1,0 +1,23 @@
+{
+  "name": "blog-management-rest-api",
+  "version": "1.0.0",
+  "description": "A simple Express.js REST API for managing blog posts.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "express",
+    "rest-api",
+    "blog"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongoose": "^9.6.1"
+  }
+}

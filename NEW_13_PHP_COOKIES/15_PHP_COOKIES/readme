@@ -1,0 +1,95 @@
+Question
+Design PHP login module with user registration form, login form. System should use cookies to track users. Use session handling and database MySQL for login
+
+⚙️ Installation & Setup (Using XAMPP)
+1️⃣ Install XAMPP
+
+Download and install from:
+👉 https://www.apachefriends.org/
+
+2️⃣ Start Services
+
+Open XAMPP Control Panel and start:
+
+Apache
+MySQL
+
+3️⃣ Project Setup
+Navigate to:
+C:\xampp\htdocs\
+Create a project folder:
+PHP_COOKIES
+Copy all project files into:
+htdocs/PHP_COOKIES
+
+4️⃣ Database Setup
+Open browser:
+http://localhost/phpmyadmin
+Create database:
+user_auth
+Select the database → Click Import
+Import file:
+schema.sql
+
+5️⃣ Configure Database Connection
+
+Open config.php and ensure:
+
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db   = "user_auth";
+
+⚠️ Make sure database name matches (user_auth)
+
+6️⃣ Run the Project
+
+Open in browser:
+
+http://localhost/PHP_COOKIES/register.php
+
+
+🧠 How the System Works
+
+🔹 Registration
+User enters username, email, password
+Input is validated
+Password is securely hashed using password_hash()
+Data is stored in MySQL database
+
+🔹 Login
+User enters credentials
+Password verified using password_verify()
+Session is created ($_SESSION)
+Optional cookie stores username ("Remember Me")
+
+🔹 Session Handling
+Session stores:
+User ID
+Username
+Maintains login state across pages
+Prevents unauthorized access
+
+🔹 Cookie Handling
+Cookie stores username
+Used for auto-filling login form
+Expires after 30 days
+
+🔹 Dashboard
+Accessible only after login
+Checks session before granting access
+Redirects unauthorized users to login page
+
+🔹 Logout
+Clears all session data
+Destroys session
+Deletes cookie
+Redirects user to login page
+
+🔐 Security Measures
+Password hashing (password_hash)
+Password verification (password_verify)
+Prepared statements (prevents SQL Injection)
+Session ID regeneration (prevents session fixation)
+XSS protection using htmlspecialchars()
+Secure cookie flags (httponly)

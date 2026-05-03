@@ -1,0 +1,55 @@
+Design and develop attendance systems using PHP and MySQL.
+a. student must be able to register himself
+b. Teacher should be able to take attendance online using check boxes, roll no and name
+
+1.Install XAMPP
+
+Download and install XAMPP
+https://www.apachefriends.org/index.html
+
+2.Start services
+
+Open XAMPP Control Panel
+
+Start:
+Apache
+MySQL
+
+3.Create project folder
+
+Go to:
+C:\xampp\htdocs\
+
+Create folder:
+attendance-system
+
+Save file inside folder as:
+index.php
+
+4.Run project
+
+Open browser:
+http://localhost/attendance-system
+
+5.Create database
+
+Open browser:
+http://localhost/phpmyadmin
+
+Create database:
+attendance
+
+6.Create tables
+Run SQL:
+Go
+
+7.Database connection in index.php
+
+$conn = new mysqli('localhost', 'root', '', 'attendance');
+
+Default XAMPP MySQL root password is empty
+
+8.Project structure
+
+attendance-system
+│── index.php

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Books | Catalog</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header>
+        <h1><a th:href="@{/}" style="color:inherit; text-decoration:none;">Lumina Books</a></h1>
+        <nav>
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/register}">Register</a>
+            <a th:href="@{/logout}">Logout</a>
+        </nav>
+    </header>
+    <div class="container" style="align-items: flex-start; padding-top: 40px;">
+        <div style="width: 100%;">
+            <h2 style="text-align: center; margin-bottom: 40px; font-size: 2rem;">Our Collection</h2>
+            <div class="grid">
+                <div class="book-card" th:each="book : ${books}">
+                    <img th:src="${book.coverImageUrl}" alt="Book Cover">
+                    <h3 th:text="${book.title}">Book Title</h3>
+                    <p th:text="${book.author}">Author Name</p>
+                    <div class="price" th:text="${'$' + book.price}">$0.00</div>
+                    <button style="margin-top: 15px; width: 100%;">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

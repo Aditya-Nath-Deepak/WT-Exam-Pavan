@@ -1,0 +1,20 @@
+[
+  {
+    "book_id": "1",
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "year": 1925
+  },
+  {
+    "book_id": "2",
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "year": 1960
+  },
+  {
+    "book_id": "3",
+    "title": "IthiHaas",
+    "author": "The Great Ash",
+    "year": 2023
+  }
+]

@@ -1,0 +1,38 @@
+### Create a new order
+POST http://localhost:8081/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Jane Doe",
+  "productName": "Smartphone",
+  "quantity": 2,
+  "price": 899.99
+}
+
+###
+
+### Get all orders
+GET http://localhost:8081/api/orders
+
+###
+
+### Get order by ID (Assuming ID 1)
+GET http://localhost:8081/api/orders/1
+
+###
+
+### Update order by ID (Assuming ID 1)
+PUT http://localhost:8081/api/orders/1
+Content-Type: application/json
+
+{
+  "customerName": "Jane Doe",
+  "productName": "Smartphone Pro Max",
+  "quantity": 1,
+  "price": 1099.99
+}
+
+###
+
+### Delete order by ID (Assuming ID 1)
+DELETE http://localhost:8080/api/orders/1

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Canvas Drawer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ecf0f1;
+            overflow: hidden;
+        }
+
+        .toolbar {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        button {
+            padding: 8px 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.2s;
+            background-color: #34495e;
+            color: #ecf0f1;
+        }
+
+        button:hover { background-color: #456789; }
+        button.active { background-color: #3498db; color: white; transform: scale(1.05); }
+        .btn-clear { background-color: #e74c3c; margin-left: 20px; }
+        .btn-clear:hover { background-color: #c0392b; }
+
+        canvas {
+            flex-grow: 1;
+            cursor: crosshair;
+            display: block;
+            background-color: white;
+        }
+
+        .status-bar {
+            background: #34495e;
+            color: #bdc3c7;
+            padding: 5px 20px;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="toolbar" id="toolbar">
+        <button data-tool="brush" class="btn-tool active">Brush</button>
+        <button data-tool="line" class="btn-tool">Line</button>
+        <button data-tool="rect" class="btn-tool">Rectangle</button>
+        <button data-tool="circle" class="btn-tool">Circle</button>
+        <button data-tool="triangle" class="btn-tool">Triangle</button>
+        <button id="clearBtn" class="btn-clear">Clear All</button>
+    </div>
+
+    <canvas id="mainCanvas"></canvas>
+    
+    <div class="status-bar" id="statusBar">Tool: Brush | Mode: Click and Drag</div>
+
+    <script>
+        const canvas = document.getElementById('mainCanvas');
+        const ctx = canvas.getContext('2d');
+        const toolbar = document.getElementById('toolbar');
+        const statusBar = document.getElementById('statusBar');
+        const clearBtn = document.getElementById('clearBtn');
+
+        let currentTool = 'brush';
+        let isDrawing = false;
+        let startPoint = null;
+
+        // Sync canvas size
+        function resizeCanvas() {
+            const tempImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight - toolbar.offsetHeight - 30;
+            ctx.putImageData(tempImage, 0, 0);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Tool Switching Logic
+        toolbar.addEventListener('click', (e) => {
+            if (e.target.classList.contains('btn-tool')) {
+                document.querySelectorAll('.btn-tool').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                currentTool = e.target.dataset.tool;
+                startPoint = null;
+                
+                statusBar.innerText = currentTool === 'brush' 
+                    ? `Tool: Brush | Mode: Click and Drag` 
+                    : `Tool: ${currentTool.charAt(0).toUpperCase() + currentTool.slice(1)} | Mode: 2-Point Click`;
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            startPoint = null;
+        });
+
+        // Mouse Events
+        canvas.addEventListener('mousedown', (e) => {
+            const x = e.clientX;
+            const y = e.clientY - canvas.offsetTop;
+
+            if (currentTool === 'brush') {
+                isDrawing = true;
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            } else {
+                handleShapeInput(x, y);
+            }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (currentTool === 'brush' && isDrawing) {
+                const x = e.clientX;
+                const y = e.clientY - canvas.offsetTop;
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = '#2c3e50';
+                ctx.lineWidth = 3;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isDrawing = false;
+        });
+
+        function handleShapeInput(x, y) {
+            if (!startPoint) {
+                startPoint = { x, y };
+                // Visual feedback for start point
+                ctx.fillStyle = '#3498db';
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fill();
+            } else {
+                ctx.strokeStyle = '#2c3e50';
+                ctx.lineWidth = 2;
+
+                if (currentTool === 'line') {
+                    ctx.beginPath();
+                    ctx.moveTo(startPoint.x, startPoint.y);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                } 
+                else if (currentTool === 'rect') {
+                    ctx.strokeRect(startPoint.x, startPoint.y, x - startPoint.x, y - startPoint.y);
+                } 
+                else if (currentTool === 'circle') {
+                    const radius = Math.sqrt(Math.pow(x - startPoint.x, 2) + Math.pow(y - startPoint.y, 2));
+                    ctx.beginPath();
+                    ctx.arc(startPoint.x, startPoint.y, radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                } 
+                else if (currentTool === 'triangle') {
+                    ctx.beginPath();
+                    ctx.moveTo(startPoint.x + (x - startPoint.x) / 2, startPoint.y); // Peak
+                    ctx.lineTo(startPoint.x, y); // Bottom left
+                    ctx.lineTo(x, y); // Bottom right
+                    ctx.closePath();
+                    ctx.stroke();
+                }
+                startPoint = null;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+Move or copy the TicTacToePHP folder to your server's root (like C:\xampp\htdocs\).
+Make sure Apache is running.
+Open your browser and go to http://localhost/TicTacToePHP/.

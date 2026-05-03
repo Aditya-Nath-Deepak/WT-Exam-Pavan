@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic Light Simulation</title>
+  <style>
+    .simulation-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #2f3640;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    .intersection {
+      position: relative;
+      width: 500px;
+      height: 500px;
+    }
+
+    /* Road Styling */
+    .road {
+      position: absolute;
+      background-color: #3d3d3d;
+      box-sizing: border-box;
+    }
+
+    .vertical {
+      width: 120px;
+      height: 100%;
+      left: 190px;
+      border-left: 4px solid #95a5a6;
+      border-right: 4px solid #95a5a6;
+    }
+
+    .horizontal {
+      width: 100%;
+      height: 120px;
+      top: 190px;
+      border-top: 4px solid #95a5a6;
+      border-bottom: 4px solid #95a5a6;
+    }
+
+    .center-line-v {
+      position: absolute;
+      height: 100%;
+      left: 50%;
+      border-left: 2px dashed #ffffff;
+      transform: translateX(-50%);
+    }
+
+    .center-line-h {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      border-top: 2px dashed #ffffff;
+      transform: translateY(-50%);
+    }
+
+    /* Signal Placement */
+    .pos-north { top: 40px; left: 200px; position: absolute; }
+    .pos-south { bottom: 40px; left: 200px; position: absolute; }
+    .pos-east { top: 200px; right: 40px; position: absolute; }
+    .pos-west { top: 200px; left: 40px; position: absolute; }
+
+    .housing {
+      background: #111;
+      padding: 8px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .bulb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #222;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    .signal-label {
+      display: block;
+      color: white;
+      font-size: 12px;
+      text-align: center;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    /* Light Glows */
+    .red.on { background-color: #ff4d4d; box-shadow: 0 0 15px #ff4d4d; }
+    .yellow.on { background-color: #ffda47; box-shadow: 0 0 15px #ffda47; }
+    .green.on { background-color: #2ecc71; box-shadow: 0 0 15px #2ecc71; }
+  </style>
+</head>
+<body>
+
+  <div class="simulation-area">
+    <div class="intersection">
+      <div class="road vertical"><div class="center-line-v"></div></div>
+      <div class="road horizontal"><div class="center-line-h"></div></div>
+
+      <!-- NS Group -->
+      <div class="pos-north" id="sig-n">
+        <span class="signal-label">North</span>
+        <div class="housing">
+          <div class="bulb red"></div>
+          <div class="bulb yellow"></div>
+          <div class="bulb green"></div>
+        </div>
+      </div>
+      <div class="pos-south" id="sig-s">
+        <span class="signal-label">South</span>
+        <div class="housing">
+          <div class="bulb red"></div>
+          <div class="bulb yellow"></div>
+          <div class="bulb green"></div>
+        </div>
+      </div>
+
+      <!-- EW Group -->
+      <div class="pos-east" id="sig-e">
+        <span class="signal-label">East</span>
+        <div class="housing">
+          <div class="bulb red"></div>
+          <div class="bulb yellow"></div>
+          <div class="bulb green"></div>
+        </div>
+      </div>
+      <div class="pos-west" id="sig-w">
+        <span class="signal-label">West</span>
+        <div class="housing">
+          <div class="bulb red"></div>
+          <div class="bulb yellow"></div>
+          <div class="bulb green"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentPhase = 0;
+    const timings = [4000, 2000, 4000, 2000]; 
+
+    function updateLights() {
+      // Index 0=Red, 1=Yellow, 2=Green
+      const states = {
+        ns: [false, false, false],
+        ew: [false, false, false]
+      };
+
+      switch (currentPhase) {
+        case 0: // NS Green
+          states.ns[2] = true; states.ew[0] = true; break;
+        case 1: // NS Yellow
+          states.ns[1] = true; states.ew[0] = true; break;
+        case 2: // EW Green
+          states.ns[0] = true; states.ew[2] = true; break;
+        case 3: // EW Yellow
+          states.ns[0] = true; states.ew[1] = true; break;
+      }
+
+      // Update North/South Bulbs
+      document.querySelectorAll('#sig-n .bulb, #sig-s .bulb').forEach((bulb, i) => {
+        // Use i % 3 to ensure both North and South bulbs get the correct index (0,1,2)
+        bulb.classList.toggle('on', states.ns[i % 3]);
+      });
+
+      // Update East/West Bulbs
+      document.querySelectorAll('#sig-e .bulb, #sig-w .bulb').forEach((bulb, i) => {
+        bulb.classList.toggle('on', states.ew[i % 3]);
+      });
+
+      setTimeout(() => {
+        currentPhase = (currentPhase + 1) % 4;
+        updateLights();
+      }, timings[currentPhase]);
+    }
+
+    updateLights();
+  </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Array Operations</title>
+</head>
+<body>
+
+    <h2>Array Operations</h2>
+    
+    <div>
+        <label>Enter numbers (comma separated): </label>
+        <input type="text" id="arrayInput" value="42, 15, 8, 99, 23">
+    </div>
+    <br>
+    
+    <div>
+        <label>Value to search: </label>
+        <input type="text" id="searchValue">
+    </div>
+    <br>
+
+    <button onclick="reverseArray()">Reverse Array</button>
+    <button onclick="sortArray()">Sort Array</button>
+    <button onclick="searchArray()">Search Array</button>
+
+    <hr>
+    
+    <h3>Result:</h3>
+    <p id="output"></p>
+
+    <script>
+        function getArray() {
+            let rawStr = document.getElementById("arrayInput").value;
+            let strArr = rawStr.split(",");
+            let numArr = [];
+            for (let i = 0; i < strArr.length; i++) {
+                numArr.push(Number(strArr[i].trim()));
+            }
+            return numArr;
+        }
+
+        function reverseArray() {
+            let arr = getArray();
+            let reversed = [];
+            for (let i = arr.length - 1; i >= 0; i--) {
+                reversed.push(arr[i]);
+            }
+            document.getElementById("output").innerText = reversed.join(", ");
+        }
+
+        function sortArray() {
+            let arr = getArray();
+            for (let i = 0; i < arr.length; i++) {
+                for (let j = 0; j < arr.length - i - 1; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        let temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+                }
+            }
+            document.getElementById("output").innerText = arr.join(", ");
+        }
+
+        function searchArray() {
+            let arr = getArray();
+            let target = Number(document.getElementById("searchValue").value.trim());
+            let foundIndex = -1;
+            
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] === target) {
+                    foundIndex = i;
+                    break;
+                }
+            }
+
+            if (foundIndex !== -1) {
+                document.getElementById("output").innerText = "Found at index: " + foundIndex;
+            } else {
+                document.getElementById("output").innerText = "Not found in the array.";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  background-color: #2c2c2c;
+  /* Lighter, more matte background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  /* Monospace ensures digits align, but '1' remains naturally narrower */
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.industrial-case {
+  background: #111;
+  padding: 20px 30px;
+  border: 5px solid #444;
+  border-radius: 4px;
+  /* Display inline-flex allows the frame to shrink/grow with the digits */
+  display: inline-flex;
+  transition: all 0.1s ease-in-out;
+  /* Smooths the frame shrinking */
+  box-shadow: 4px 4px 0px #000;
+}
+
+.display-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.digit {
+  font-size: 70px;
+  color: #d10000;
+  /* Flat red, less 'neon' */
+  font-weight: bold;
+  /* No min-width here: this allows the '1' to shrink the frame */
+  padding: 0 2px;
+  /* Very subtle glow only */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.separator {
+  font-size: 60px;
+  color: #900;
+  padding: 0 5px;
+  margin-bottom: 8px;
+}
+
+.controls {
+  margin-top: 25px;
+}
+
+.toggle-btn {
+  padding: 10px 20px;
+  background: #444;
+  color: #eee;
+  border: 2px solid #666;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.toggle-btn:active {
+  background: #222;
+  transform: translateY(2px);
+}

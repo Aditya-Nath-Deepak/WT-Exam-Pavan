@@ -1,0 +1,41 @@
+/* TASK 3: Dynamic background and text colors */
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+  font-family: sans-serif;
+}
+
+.light {
+  background-color: #f0f0f0;
+  color: #222;
+}
+
+.dark {
+  background-color: #121212;
+  color: #fff;
+}
+
+.card {
+  text-align: center;
+  padding: 30px;
+  border: 1px solid #888;
+  border-radius: 12px;
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid #888;
+  background: transparent;
+  color: inherit;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background: rgba(128, 128, 128, 0.2);
+}
