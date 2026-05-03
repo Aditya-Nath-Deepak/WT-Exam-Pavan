@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT Project Pillars</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f7f9; font-family: 'Segoe UI', sans-serif; }
+        .vit-header { background: #1e3a8a; color: white; padding: 2rem 0; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .nav-pills .nav-link.active { background-color: #1e3a8a; }
+        .nav-link { color: #1e3a8a; font-weight: 600; cursor: pointer; }
+        .tab-content-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); min-height: 300px; }
+        .project-tag { font-size: 0.8rem; text-transform: uppercase; color: #2563eb; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<header class="vit-header text-center">
+    <h1>VIT Academic Framework</h1>
+    <p>Understanding SDP, EDI, DT, and Course Projects</p>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <ul class="nav nav-pills flex-column shadow-sm bg-white p-3 rounded" id="projectTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-target="sdp">Skill Development Project (SDP)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-target="edi">Engineering Design & Innovation (EDI)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-target="dt">Design Thinking (DT)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-target="cp">Course Projects</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-8">
+            <div class="tab-content-card" id="content-display">
+                </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        const data = {
+            sdp: {
+                title: "Skill Development Project (SDP)",
+                tag: "Technical Proficiency",
+                desc: "SDP focuses on bridging the gap between theoretical knowledge and industry standards. At VIT, it encourages students to master specific technologies like Java, Python, or Web Frameworks through hands-on implementation."
+            },
+            edi: {
+                title: "Engineering Design & Innovation (EDI)",
+                tag: "Interdisciplinary Approach",
+                desc: "EDI is a signature VIT component where students from different domains collaborate. It emphasizes building end-to-end systems, focusing on both the engineering constraints and the innovative solution to real-world problems."
+            },
+            dt: {
+                title: "Design Thinking (DT)",
+                tag: "User-Centric Logic",
+                desc: "Design Thinking teaches the Empathize-Define-Ideate-Prototype-Test cycle. It ensures that VIT students don't just build technically sound products, but solutions that actually solve human problems effectively."
+            },
+            cp: {
+                title: "Course Projects",
+                tag: "Subject Mastery",
+                desc: "These are targeted projects specific to curriculum subjects like DBMS, OS, or Computer Networks. They ensure deep-diving into the core concepts of the specific course through practical coding or simulation."
+            }
+        };
+
+        function updateContent(key) {
+            const item = data[key];
+            const html = `
+                <span class="project-tag">${item.tag}</span>
+                <h2 class="mt-2 text-primary">${item.title}</h2>
+                <hr>
+                <p class="lead text-secondary">${item.desc}</p>
+            `;
+            $('#content-display').hide().html(html).fadeIn(400);
+        }
+
+        updateContent('sdp');
+
+        $('#projectTabs .nav-link').on('click', function(e) {
+            e.preventDefault();
+            
+            $('#projectTabs .nav-link').removeClass('active');
+            $(this).addClass('active');
+
+            const target = $(this).data('target');
+            updateContent(target);
+        });
+    });
+</script>
+
+</body>
+</html>

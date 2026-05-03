@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aryan | Professional CV</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { 
+            /* Professional Blue-Grey Gradient */
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: #f8fafc;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .glass-card:hover { 
+            border-color: rgba(96, 165, 250, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .skill-badge { 
+            background: rgba(59, 130, 246, 0.2); 
+            border: 1px solid rgba(59, 130, 246, 0.5); 
+            margin: 4px; 
+            padding: 8px 12px;
+            color: #93c5fd;
+        }
+
+        h1, h2, h3 { color: #60a5fa; font-weight: 700; }
+        .section-title { 
+            border-left: 4px solid #3b82f6; 
+            padding-left: 12px; 
+            margin-bottom: 20px; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+        }
+
+        .text-muted-custom { color: #94a3b8; }
+    </style>
+</head>
+<body>
+
+    <div class="container py-5">
+        <div class="row g-4">
+            
+            <div class="col-lg-4">
+                <div class="glass-card text-center">
+                    <img src="https://via.placeholder.com/120" class="rounded-circle border border-3 border-primary mb-3" alt="Profile">
+                    <h2>Aryan</h2>
+                    <p class="text-info mb-4">Full Stack Developer | VIT Pune</p>
+                    
+                    <div class="text-start">
+                        <p class="small mb-1"><i class="bi bi-geo-alt"></i> 📍 Pune, Maharashtra</p>
+                        <p class="small mb-1">📧 aryan@example.com</p>
+                        <p class="small">💻 HP Laptop 15s | Java Dev</p>
+                    </div>
+
+                    <div class="mt-4 text-start">
+                        <h5 class="section-title">Technical Skills</h5>
+                        <div class="d-flex flex-wrap">
+                            <span class="badge skill-badge">Java</span>
+                            <span class="badge skill-badge">React.js</span>
+                            <span class="badge skill-badge">Node.js</span>
+                            <span class="badge skill-badge">MySQL</span>
+                            <span class="badge skill-badge">Python</span>
+                            <span class="badge skill-badge">Cybersecurity</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="glass-card">
+                    <h4 class="section-title">Education</h4>
+                    <h5>B.Tech in Computer Engineering</h5>
+                    <p class="mb-0">Vishwakarma Institute of Technology (VIT), Pune</p>
+                    <p class="text-muted-custom small">TY-A | Academic Session 2025-26</p>
+                </div>
+
+                <div class="glass-card">
+                    <h4 class="section-title">Key Projects</h4>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text-white">Agentic Bug Hunter</h5>
+                            <span class="badge bg-primary rounded-pill">Feb 2026</span>
+                        </div>
+                        <p class="text-muted-custom small">AI-driven code analysis tool using LLMs for automated bug identification and suggestion pipelines.</p>
+                    </div>
+
+                    <div class="mb-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text-white">LLM Hallucination Detector</h5>
+                            <span class="badge bg-primary rounded-pill">Mar 2026</span>
+                        </div>
+                        <p class="text-muted-custom small">Verification layer involving claim decomposition and hybrid evidence retrieval to ensure AI accuracy.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <h4 class="section-title">Experience</h4>
+                    <div class="d-flex justify-content-between">
+                        <h5 class="text-white">Full Stack Intern | Herb's Magic</h5>
+                        <span class="text-info small">2025</span>
+                    </div>
+                    <ul class="text-muted-custom small mt-2">
+                        <li>Developed responsive web interfaces using React.</li>
+                        <li>Built scalable geocoding pipelines for data analytics.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Smooth entry effect
+            $('.glass-card').css('opacity', 0).each(function(i) {
+                $(this).delay(200 * i).animate({ opacity: 1 }, 600);
+            });
+        });
+    </script>
+</body>
+</html>
